@@ -1,0 +1,1799 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/rebunk.beta.core.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">src/</a> rebunk.beta.core.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">95.79% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>182/190</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">58.75% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>94/160</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>13/13</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">96.28% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>181/188</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/*! Core */
+&nbsp;
+/*! Critical JavaScript. Load in &lt;head&gt; using &lt;script&gt; with async attribute */
+/*jshint -W097 */
+/*jshint -W117 */
+/*jshint devel: true, plusplus: false, nonew: false*/
+/* global process, self, global, module, window, amplify, XMLHttpRequest, ActiveXObject, console */
+"use strict";
+(function(window, document, $, _r){
+&nbsp;
+    (function(root, name, make){
+        var $ = (root.jQuery || root.Zepto) ? <span class="branch-0 cbranch-no" title="branch not covered" >root.jQuery || root.Zepto </span>: root.$;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (typeof module !== 'undefined' &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >module.exports)</span>{ <span class="cstat-no" title="statement not covered" >module.exports = make($);}</span>
+        else {root[name] = make($);}
+    }(window, 'rebunk', function($) {
+&nbsp;
+        /**
+         * Main initialization function for rebunk
+         */
+        var init = function()
+        {
+            //set incrementer for tests
+            rScript.store('rb_test_counter_list', 1);
+            rScript.store('rb_test_counter_all', 0);
+            rScript.store('rb_test_counter_pass', 0);
+            rScript.store('rb_test_counter_fail', 0);
+&nbsp;
+            //start timer
+            _startTimer();
+        };
+&nbsp;
+        /**
+         * Marks the timer at the start of rebunk
+         * @private
+         */
+        function _startTimer()
+        {
+            rScript.store('rb_timer_start', _r.microtime(true));
+        }
+&nbsp;
+        /**
+         * Marks the time at the end of a rebunk test
+         * @private
+         */
+        function _endTimer()
+        {
+            rScript.store('rb_timer_end', _r.microtime(true));
+        }
+&nbsp;
+        /**
+         * Gets the timer difference
+         * @private
+         */
+        function _diffTimer()
+        {
+            var start_timer_flt = parseFloat(rScript.store('rb_timer_start')),
+                end_timer_flt = parseFloat(rScript.store('rb_timer_end')),
+                diff_timer_flt
+            ;
+&nbsp;
+            diff_timer_flt = end_timer_flt - start_timer_flt;
+            diff_timer_flt = Math.round((diff_timer_flt + 0.00001) * 1000) / 1000;
+&nbsp;
+            return diff_timer_flt;
+        }
+&nbsp;
+        /**
+         * Displays the final summary of all tests including time elapsed
+         * @private
+         */
+        function _displaySummary()
+        {
+            var config_obj = _getConfig(),
+                diff_timer_flt = _diffTimer(),
+                test_counter_all_str = rScript.store('rb_test_counter_all'),
+                test_counter_all_int = parseInt(test_counter_all_str),
+                test_counter_pass_str = rScript.store('rb_test_counter_pass'),
+                test_counter_fail_str = rScript.store('rb_test_counter_fail'),
+                plural_suffix_str = (test_counter_all_int === 1) ? <span class="branch-0 cbranch-no" title="branch not covered" >'' </span>: 's'
+                ;
+&nbsp;
+            _r.console.log('\n%c'+test_counter_all_str+' Total Assertion'+plural_suffix_str+' \u2022 '+test_counter_pass_str+' Passed \u2022 '+test_counter_fail_str+' Failed \u2022 '+diff_timer_flt+'s', 'color:'+config_obj.colorSummary);
+        }
+&nbsp;
+        /**
+         * Defines the configuration
+         * @param {Object} config_obj the config object that defines rebunk
+         * timeout: the summary timeout in milliseconds. Default is 5000
+         * colorPass: the color of the test notification label that passes. Default is #008e00
+         * colorFail: the color of the test notification label that fails. Default is #ff0000
+         * colorFlag: the color of the flag notification message. Default is #888888
+         * colorBody: the color of the main test notification. Default is #555555
+         * colorHint: the color of the test notification hint. Default is #777777
+         * colorSummary: the color of the test summary. Default is #555555
+         * labelPass: the text value of the test notification label that passes. Default is 'Pass'
+         * labelFail: the text value of the test notification label that fails. Default is 'Fail'
+         * labelFlag: the text value of the flag notification. Default is 'Flag'
+         * iconPass: the icon of the test notification label that passes: Default is '\u2714'
+         * iconFail: the icon of the test notification label that fails: Default is '\u2718'
+         * iconFlag: the icon of the flag notification: Default is '\u2757'
+         */
+        function config()
+        {
+            var myArgs = Array.prototype.slice.call(arguments),
+                config_obj = (_r.isObject(myArgs[0])) ? myArgs[0]: {};
+&nbsp;
+            //Timeout
+            config_obj.timeout = (config_obj.timeout &amp;&amp; _r.isNumber(config_obj.timeout)) ? config_obj.timeout : 5000;
+&nbsp;
+            //Colors
+            config_obj.colorPass = (config_obj.colorPass &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >_r.isString(config_obj.colorPass))</span> ? <span class="branch-0 cbranch-no" title="branch not covered" >config_obj.colorPass </span>: '#008e00';
+            config_obj.colorFail = (config_obj.colorFail &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >_r.isString(config_obj.colorFail))</span> ? <span class="branch-0 cbranch-no" title="branch not covered" >config_obj.colorFail </span>: '#ff0000';
+            config_obj.colorFlag = (config_obj.colorFlag &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >_r.isString(config_obj.colorFlag))</span> ? <span class="branch-0 cbranch-no" title="branch not covered" >config_obj.colorFlag </span>: '#888888';
+            config_obj.colorBody = (config_obj.colorBody &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >_r.isString(config_obj.colorBody))</span> ? <span class="branch-0 cbranch-no" title="branch not covered" >config_obj.colorBody </span>: '#555555';
+            config_obj.colorHint = (config_obj.colorHint &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >_r.isString(config_obj.colorHint))</span> ? <span class="branch-0 cbranch-no" title="branch not covered" >config_obj.colorHint </span>: '#777777';
+            config_obj.colorSummary = (config_obj.colorSummary &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >_r.isString(config_obj.colorSummary))</span> ? <span class="branch-0 cbranch-no" title="branch not covered" >config_obj.colorSummary </span>: '#555555';
+&nbsp;
+            //Labels
+            config_obj.labelPass = (config_obj.labelPass &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >_r.isString(config_obj.labelPass))</span> ? <span class="branch-0 cbranch-no" title="branch not covered" >config_obj.labelPass </span>: 'Pass';
+            config_obj.labelFail = (config_obj.labelFail &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >_r.isString(config_obj.labelFail))</span> ? <span class="branch-0 cbranch-no" title="branch not covered" >config_obj.labelFail </span>: 'Fail';
+            config_obj.labelFlag = (config_obj.labelFlag &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >_r.isString(config_obj.labelFlag))</span> ? <span class="branch-0 cbranch-no" title="branch not covered" >config_obj.labelFlag </span>: 'Flag';
+&nbsp;
+            //Icons
+            config_obj.iconPass = (config_obj.iconPass &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >_r.isString(config_obj.iconPass))</span> ? <span class="branch-0 cbranch-no" title="branch not covered" >config_obj.iconPass </span>: '\u2714';
+            config_obj.iconFail = (config_obj.iconFail &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >_r.isString(config_obj.iconFail))</span> ? <span class="branch-0 cbranch-no" title="branch not covered" >config_obj.iconFail </span>: '\u2718';
+            config_obj.iconFlag = (config_obj.iconFlag &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >_r.isString(config_obj.iconFlag))</span> ? <span class="branch-0 cbranch-no" title="branch not covered" >config_obj.iconFlag </span>: '\u2757';
+&nbsp;
+&nbsp;
+            //persist to object storage
+            rScript.addObject('rb_config', config_obj, {namespace: 'rebunk_vars'});
+&nbsp;
+            //flag to ensure dedup
+            rScript.domStore('rb_config_flag_status', true);
+        }
+&nbsp;
+        /**
+         * Gets the config object
+         * If config object is not set, it will set with default values and then get
+         * @returns {Object}
+         * @private
+         */
+        function _getConfig()
+        {
+            var config_flag_status_bool = !!((rScript.domStore('rb_config_flag_status')));
+            <span class="missing-if-branch" title="if path not taken" >I</span>if(!config_flag_status_bool)
+            {
+<span class="cstat-no" title="statement not covered" >                config();</span>
+            }
+            return rScript.getObject('rb_config', {namespace: 'rebunk_vars'});
+        }
+&nbsp;
+        /**
+         * Sets the stage for the test
+         * @param {Object} condition_obj the thresholds under which the test must be conducted. If the conditions are not met, the test will always fail.
+         * For example, you might want to perform a test that is valid only when a mobile device is used. In this case, when the device is not mobile, a flag should be thrown
+         *
+         * The following parameters can be defined:
+         *
+         * ua_regex: defines a regular expression to be applied on the user agent string
+         * viewport_w: defines a viewport width threshold. If the current viewport width is above this threshold, the test will be flagged
+         * viewport_h: defines a viewport height threshold. If the current viewport height is above this threshold, the test will be flagged
+         * screen_w: defines a screen width threshold. If the current screen width is above this threshold, the test will be flagged
+         * screen_h: defines a screen height threshold. If the current screen height is above this threshold, the test will be flagged
+         * is_desktop: confines the test to a desktop device. If true, the test will be flagged if the device is not a desktop
+         * is_tablet: confines the test to a tablet device. If true, the test will be flagged if the device is not a tablet
+         * is_phone: confines the test to a smartphone device. If true, the test will be flagged if the device is not a smartphone
+         * is_mobile: confines the test to a mobile device. If true, the test will be flagged if the device is not a mobile
+         * is_nonmobile: confines the test to a non-mobile device. If true, the test will be flagged if the device is not a non-mobile
+         * is_portrait: confines the test to a the portrait orientation. If true, the test will be flagged if the device is not in portrait orientation
+         * is_landscape: confines the test to the landscape orientation. If true, the test will be flagged if the device is not in landscape orientation
+         * formfactor: confines the test to a specific formfactor. Available options are 'phone', 'tablet', 'desktop', and 'tv'
+         * os: confines the test to a specific OS. Available options are 'ios', 'android', 'blackberry', 'symbian', 'windows', 'mac', 'linux'
+         *
+         */
+        function stage(condition_obj)
+        {
+            var config_obj,
+                console_message_str,
+                console_message_prefix_str,
+                condition_failed_bool = false,
+                condition_result_item_bool,
+                condition_label_arr = [];
+&nbsp;
+            //Show Header
+            <span class="missing-if-branch" title="else path not taken" >E</span>if(!rScript.domStore('rb_test_header'))
+            {
+                _r.console.log('%cRebunk Test Suite\n=================\n', 'color:#777777');
+&nbsp;
+                rScript.domStore('rb_test_header', true);
+            }
+&nbsp;
+            //get config
+            config_obj = _getConfig();
+&nbsp;
+            //Manage condition
+            <span class="missing-if-branch" title="else path not taken" >E</span>if(_r.isObject(condition_obj))
+            {
+                //1. User Agent
+                var condition_ua_regex_str = condition_obj.ua_regex,
+                    ua_str,
+                    ua_regex_obj
+                    ;
+                //_r.console.log('condition_ua_regex_str');
+                //_r.console.log(condition_ua_regex_str);
+                <span class="missing-if-branch" title="else path not taken" >E</span>if(condition_ua_regex_str &amp;&amp; _r.isString(condition_ua_regex_str))
+                {
+                    ua_str = rScript.getUserAgent();
+                    ua_regex_obj = new RegExp(condition_ua_regex_str, "ig");
+                    condition_result_item_bool = ua_regex_obj.test(ua_str);
+&nbsp;
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if(!condition_result_item_bool)
+                    {
+                        condition_label_arr.push('User agent regular expression condition [\''+condition_ua_regex_str+'\'] does not match for the user agent [\''+ua_str+'\']');
+                        condition_failed_bool = true;
+                    }
+                }
+&nbsp;
+                //2. Viewport Width
+                var condition_viewport_w_int = condition_obj.viewport_w,
+                    viewport_w_int
+                    ;
+                //_r.console.log('condition_viewport_w_int');
+                //_r.console.log(condition_viewport_w_int);
+                <span class="missing-if-branch" title="else path not taken" >E</span>if(condition_viewport_w_int &amp;&amp; _r.isNumber(condition_viewport_w_int))
+                {
+                    viewport_w_int = rScript.viewportW();
+                    condition_result_item_bool = ((viewport_w_int &lt;= condition_viewport_w_int));
+&nbsp;
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if(!condition_result_item_bool)
+                    {
+                        condition_label_arr.push('Viewport width ['+viewport_w_int+'] is greater than the specified threshold ['+condition_viewport_w_int+']');
+                        condition_failed_bool = true;
+                    }
+                }
+&nbsp;
+                //3. Viewport Height
+                var condition_viewport_h_int = condition_obj.viewport_h,
+                    viewport_h_int
+                    ;
+                //_r.console.log('condition_viewport_w_int');
+                //_r.console.log(condition_viewport_w_int);
+                <span class="missing-if-branch" title="else path not taken" >E</span>if(condition_viewport_h_int &amp;&amp; _r.isNumber(condition_viewport_h_int))
+                {
+                    viewport_h_int = rScript.viewportW();
+                    condition_result_item_bool = ((viewport_h_int &lt;= condition_viewport_h_int));
+&nbsp;
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if(!condition_result_item_bool)
+                    {
+                        condition_label_arr.push('Viewport height ['+viewport_h_int+'] is greater than the specified threshold ['+condition_viewport_h_int+']');
+                        condition_failed_bool = true;
+                    }
+                }
+&nbsp;
+                //4. Screen Width
+                var condition_screen_w_int = condition_obj.screen_w,
+                    screen_w_int
+                    ;
+                //_r.console.log('condition_viewport_w_int');
+                //_r.console.log(condition_viewport_w_int);
+                <span class="missing-if-branch" title="else path not taken" >E</span>if(condition_screen_w_int &amp;&amp; _r.isNumber(condition_screen_w_int))
+                {
+                    screen_w_int = rScript.screenW();
+                    condition_result_item_bool = ((screen_w_int &lt;= condition_screen_w_int));
+&nbsp;
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if(!condition_result_item_bool)
+                    {
+                        condition_label_arr.push('Screen width ['+screen_w_int+'] is greater than the specified threshold ['+condition_screen_w_int+']');
+                        condition_failed_bool = true;
+                    }
+                }
+&nbsp;
+                //5. Screen Height
+                var condition_screen_h_int = condition_obj.screen_h,
+                    screen_h_int
+                    ;
+                //_r.console.log('condition_viewport_w_int');
+                //_r.console.log(condition_viewport_w_int);
+                <span class="missing-if-branch" title="else path not taken" >E</span>if(condition_screen_h_int &amp;&amp; _r.isNumber(condition_screen_h_int))
+                {
+                    screen_h_int = rScript.screenW();
+                    condition_result_item_bool = ((screen_h_int &lt;= condition_screen_h_int));
+&nbsp;
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if(!condition_result_item_bool)
+                    {
+                        condition_label_arr.push('Screen height ['+screen_h_int+'] is greater than the specified threshold ['+condition_screen_h_int+']');
+                        condition_failed_bool = true;
+                    }
+                }
+&nbsp;
+                //6. Is Desktop
+                var condition_is_desktop_bool = condition_obj.is_desktop,
+                    is_desktop_bool
+                    ;
+                //_r.console.log('condition_viewport_w_int');
+                //_r.console.log(condition_viewport_w_int);
+                <span class="missing-if-branch" title="else path not taken" >E</span>if(_r.isBool(condition_is_desktop_bool))
+                {
+                    is_desktop_bool = rScript.isDesktop();
+                    condition_result_item_bool = (is_desktop_bool === condition_is_desktop_bool);
+&nbsp;
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if(!condition_result_item_bool)
+                    {
+                        condition_label_arr.push('This device is not a desktop');
+                        condition_failed_bool = true;
+                    }
+                }
+&nbsp;
+                //7. Is Tablet
+                var condition_is_tablet_bool = condition_obj.is_tablet,
+                    is_tablet_bool
+                    ;
+                //_r.console.log('condition_viewport_w_int');
+                //_r.console.log(condition_viewport_w_int);
+                <span class="missing-if-branch" title="else path not taken" >E</span>if(_r.isBool(condition_is_tablet_bool))
+                {
+                    is_tablet_bool = rScript.isTablet();
+                    condition_result_item_bool = (is_tablet_bool === condition_is_tablet_bool);
+&nbsp;
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if(!condition_result_item_bool)
+                    {
+                        condition_label_arr.push('This device is not a tablet');
+                        condition_failed_bool = true;
+                    }
+                }
+&nbsp;
+                //8. Is Smartphone
+                var condition_is_phone_bool = condition_obj.is_phone,
+                    is_phone_bool
+                    ;
+                //_r.console.log('condition_viewport_w_int');
+                //_r.console.log(condition_viewport_w_int);
+                <span class="missing-if-branch" title="else path not taken" >E</span>if(_r.isBool(condition_is_phone_bool))
+                {
+                    is_phone_bool = rScript.isPhone();
+                    condition_result_item_bool = (is_phone_bool === condition_is_phone_bool);
+&nbsp;
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if(!condition_result_item_bool)
+                    {
+                        condition_label_arr.push('This device is not a smartphone');
+                        condition_failed_bool = true;
+                    }
+                }
+&nbsp;
+                //9. Is Mobile
+                var condition_is_mobile_bool = condition_obj.is_mobile,
+                    is_mobile_bool
+                    ;
+                //_r.console.log('condition_viewport_w_int');
+                //_r.console.log(condition_viewport_w_int);
+                <span class="missing-if-branch" title="else path not taken" >E</span>if(_r.isBool(condition_is_mobile_bool))
+                {
+                    is_mobile_bool = rScript.isMobile();
+                    condition_result_item_bool = (is_mobile_bool === condition_is_mobile_bool);
+&nbsp;
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if(!condition_result_item_bool)
+                    {
+                        condition_label_arr.push('This device is not a mobile');
+                        condition_failed_bool = true;
+                    }
+                }
+&nbsp;
+                //10. Is Non-Mobile
+                var condition_is_non_mobile_bool = (condition_obj.is_nonmobile || <span class="branch-1 cbranch-no" title="branch not covered" >condition_obj.is_non_mobile)</span>,
+                    is_non_mobile_bool
+                    ;
+                //_r.console.log('condition_viewport_w_int');
+                //_r.console.log(condition_viewport_w_int);
+                <span class="missing-if-branch" title="else path not taken" >E</span>if(_r.isBool(condition_is_non_mobile_bool))
+                {
+                    is_non_mobile_bool = rScript.isNonMobile();
+                    condition_result_item_bool = (is_non_mobile_bool === condition_is_non_mobile_bool);
+&nbsp;
+                    <span class="missing-if-branch" title="if path not taken" >I</span>if(!condition_result_item_bool)
+                    {
+<span class="cstat-no" title="statement not covered" >                        condition_label_arr.push('This device is a mobile');</span>
+<span class="cstat-no" title="statement not covered" >                        condition_failed_bool = true;</span>
+                    }
+                }
+&nbsp;
+                //11. Is Portrait
+                var condition_is_portrait_bool = condition_obj.is_portrait,
+                    is_portrait_bool
+                    ;
+                //_r.console.log('condition_viewport_w_int');
+                //_r.console.log(condition_viewport_w_int);
+                <span class="missing-if-branch" title="else path not taken" >E</span>if(_r.isBool(condition_is_portrait_bool))
+                {
+                    is_portrait_bool = rScript.isPortrait();
+                    condition_result_item_bool = (is_portrait_bool === condition_is_portrait_bool);
+&nbsp;
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if(!condition_result_item_bool)
+                    {
+                        condition_label_arr.push('This device is not in portrait orientation');
+                        condition_failed_bool = true;
+                    }
+                }
+&nbsp;
+                //12. Is Landscape
+                var condition_is_landscape_bool = condition_obj.is_landscape,
+                    is_landscape_bool
+                    ;
+                //_r.console.log('condition_viewport_w_int');
+                //_r.console.log(condition_viewport_w_int);
+                <span class="missing-if-branch" title="else path not taken" >E</span>if(_r.isBool(condition_is_landscape_bool))
+                {
+                    is_landscape_bool = rScript.isLandscape();
+                    condition_result_item_bool = (is_landscape_bool === condition_is_landscape_bool);
+&nbsp;
+                    <span class="missing-if-branch" title="if path not taken" >I</span>if(!condition_result_item_bool)
+                    {
+<span class="cstat-no" title="statement not covered" >                        condition_label_arr.push('This device is not in landscape orientation');</span>
+<span class="cstat-no" title="statement not covered" >                        condition_failed_bool = true;</span>
+                    }
+                }
+&nbsp;
+                //13. Form Factor
+                var condition_formfactor_str = condition_obj.formfactor,
+                    formfactor_str
+                    ;
+                //_r.console.log('condition_viewport_w_int');
+                //_r.console.log(condition_viewport_w_int);
+                <span class="missing-if-branch" title="else path not taken" >E</span>if(condition_formfactor_str &amp;&amp; _r.isString(condition_formfactor_str) &amp;&amp; condition_formfactor_str.length &gt; 0)
+                {
+                    formfactor_str = rScript.getFormFactor();
+                    condition_result_item_bool = (formfactor_str === condition_formfactor_str);
+&nbsp;
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if(!condition_result_item_bool)
+                    {
+                        condition_label_arr.push('Form-factor condition [\''+condition_formfactor_str+'\'] does not match with the device form-factor [\''+formfactor_str+'\']');
+                        condition_failed_bool = true;
+                    }
+                }
+&nbsp;
+                //14. Operating System
+                var condition_os_str = (condition_obj.os || <span class="branch-1 cbranch-no" title="branch not covered" >condition_obj.platform)</span>,
+                    os_str
+                    ;
+                //_r.console.log('condition_viewport_w_int');
+                //_r.console.log(condition_viewport_w_int);
+                <span class="missing-if-branch" title="else path not taken" >E</span>if(condition_os_str &amp;&amp; _r.isString(condition_os_str) &amp;&amp; condition_os_str.length &gt; 0)
+                {
+                    os_str = rScript.getPlatform();
+                    condition_result_item_bool = (os_str === condition_os_str);
+&nbsp;
+                    <span class="missing-if-branch" title="else path not taken" >E</span>if(!condition_result_item_bool)
+                    {
+                        condition_label_arr.push('OS condition [\''+condition_os_str+'\'] does not match with the device OS [\''+os_str+'\']');
+                        condition_failed_bool = true;
+                    }
+                }
+            }
+&nbsp;
+            //compose condition message
+            console_message_str = '%c';
+            <span class="missing-if-branch" title="else path not taken" >E</span>if(condition_failed_bool)
+            {
+                for(var i = 0; i &lt; condition_label_arr.length; i++)
+                {
+                    console_message_prefix_str = (i === 0) ? '': '\n';
+                    console_message_str += console_message_prefix_str+config_obj.iconFlag+' '+config_obj.labelFlag+': '+condition_label_arr[i];
+                }
+&nbsp;
+                //flag in session Storage
+                rScript.domStore('rb_stage_flag_status', true);
+            }
+&nbsp;
+            _r.console.log(console_message_str, 'color:'+config_obj.colorFlag);
+        }
+&nbsp;
+        /**
+         * Runs a test
+         * @param {String} label_str the identifier of the specific test
+         * @param {String} expect_str the expected value
+         * @param {String} actual_str the actual value
+         * @param {String} callfront_str This is the name of a function that should be called prior to the test running
+         */
+        function test(label_str, expect_str, actual_str)
+        {
+            var myArgs = Array.prototype.slice.call(arguments),
+                test_id_temp_str = _r.md5(label_str),
+                test_id_str,
+                test_obj = {},
+                console_icon_symbol_str,
+                console_icon_color_str,
+                console_icon_label_str,
+                console_message_str,
+                config_obj,
+                stage_flag_status_bool
+                ;
+&nbsp;
+            //Show Header
+            <span class="missing-if-branch" title="if path not taken" >I</span>if(!rScript.domStore('rb_test_header'))
+            {
+<span class="cstat-no" title="statement not covered" >                _r.console.log('%cRebunk Test Suite\n=================\n', 'color:#777777');</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                rScript.domStore('rb_test_header', true);</span>
+            }
+&nbsp;
+            //get config
+            config_obj = _getConfig();
+&nbsp;
+            //set timer if not set
+            if(!rScript.domStore('rb_timer_test_summary'))
+            {
+                _r.console.log('set_timeout');
+                _r.console.log(config_obj);
+&nbsp;
+                //set timeout for timer
+                setTimeout(function(){ _displaySummary();}, config_obj.timeout);
+&nbsp;
+                rScript.domStore('rb_timer_test_summary', true);
+            }
+&nbsp;
+            //get stage flag status
+            stage_flag_status_bool = !!((rScript.domStore('rb_stage_flag_status')));
+&nbsp;
+            /**
+            //generate test id
+            test_id_str = 'rebunk_test_'+test_id_temp_str.slice(0, 8);
+&nbsp;
+            //generate test object
+            test_obj.label = label_str;
+            test_obj.expect = expect_str;
+            test_obj.actual = actual_str;
+&nbsp;
+            //add to queue
+            rScript.addObject(test_id_str, test_obj, 'rebunk_test_queue');
+            **/
+&nbsp;
+            //select message parameters based on test result
+            if(expect_str === actual_str)
+            {
+                console_icon_symbol_str = config_obj.iconPass;
+                console_icon_color_str = config_obj.colorPass;
+                console_icon_label_str = config_obj.labelPass;
+&nbsp;
+                //increment counter for passed tests
+                rScript.storeIncrement('rb_test_counter_pass');
+            }
+            else
+            {
+                console_icon_symbol_str = config_obj.iconFail;
+                console_icon_color_str = config_obj.colorFail;
+                console_icon_label_str = config_obj.labelFail;
+&nbsp;
+                //increment counter for failed tests
+                rScript.storeIncrement('rb_test_counter_fail');
+            }
+&nbsp;
+            //change color if stage is flagged
+            <span class="missing-if-branch" title="else path not taken" >E</span>if(stage_flag_status_bool)
+            {
+                console_icon_color_str = config_obj.colorFlag;
+            }
+&nbsp;
+            //compose result message
+            console_message_str = '%c'+console_icon_symbol_str+' '+console_icon_label_str+' %c\n'+rScript.store('rb_test_counter_list')+'. '+label_str+'\n'+'%cExpected value is \''+expect_str+'\' \u2022 Actual value is \''+actual_str+'\'';
+            _r.console.log(console_message_str, 'color:'+console_icon_color_str+';font-weight: bold', 'color:'+config_obj.colorBody, 'color:'+config_obj.colorHint);
+&nbsp;
+            //increment test counters
+            rScript.storeIncrement('rb_test_counter_list');
+            rScript.storeIncrement('rb_test_counter_all');
+&nbsp;
+            //mark timer
+            _endTimer();
+        }
+&nbsp;
+        var rebunk = {
+            init: init(),
+            config: config,
+            stage: stage,
+            test: test
+        };
+&nbsp;
+        return rebunk;
+    }));
+&nbsp;
+})(window, document, rQuery, _r);
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Apr 15 2017 01:26:24 GMT+0100 (WAT)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

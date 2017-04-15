@@ -1,0 +1,38 @@
+{
+  "name": "rebunk",
+  "version": "1.0.0",
+  "description": "an in-browser end-to-end front-end testing framework",
+  "main": "",
+  "dependencies": {
+    "karma": "^1.3.0"
+  },
+  "devDependencies": {
+    "jasmine-core": "^2.5.2",
+    "karma": "^1.3.0",
+    "karma-browserstack-launcher": "^1.1.1",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-coverage": "^1.1.1",
+    "karma-firefox-launcher": "^1.0.0",
+    "karma-fixture": "^0.2.6",
+    "karma-html2js-preprocessor": "^1.1.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-json-fixtures-preprocessor": "0.0.6",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "karma-sauce-launcher": "^1.1.0",
+    "node-phantom": "^0.2.5",
+    "selenium-webdriver": "^3.0.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/obihill/rebunk.git"
+  },
+  "author": "Obinwanne Hill <ohill@restive.io>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/obihill/rebunk/issues"
+  },
+  "homepage": "https://github.com/obihill/rebunk#readme"
+}

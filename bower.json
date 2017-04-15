@@ -1,0 +1,26 @@
+{
+  "name": "rebunk",
+  "authors": [
+    "Obinwanne Hill <ohill@restive.io>"
+  ],
+  "description": "a simple in-browser end-to-end testing framework",
+  "main": "dist/rebunk.js",
+  "keywords": [
+    "testing",
+    "end-to-end",
+    "tdd"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/obihill/rebunk.git"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/obihill/rebunk",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
