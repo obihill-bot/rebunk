@@ -3,12 +3,17 @@
   "authors": [
     "Obinwanne Hill <ohill@restive.io>"
   ],
-  "description": "a simple in-browser end-to-end testing framework",
+  "description": "a simple in-browser front-end testing framework",
   "main": "dist/rebunk.js",
   "keywords": [
     "testing",
+    "framework",
     "end-to-end",
-    "tdd"
+    "frontend",
+    "front-end",
+    "tdd",
+    "javascript",
+    "console"
   ],
   "repository": {
     "type": "git",
@@ -18,6 +23,8 @@
   "homepage": "https://github.com/obihill/rebunk",
   "ignore": [
     "**/.*",
+    "*.yml",
+    "*.md",
     "node_modules",
     "bower_components",
     "test",
