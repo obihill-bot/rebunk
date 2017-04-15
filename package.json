@@ -26,7 +26,7 @@
   },
   "scripts": {
     "test": "npm run -s test:lint && npm run -s test:unit",
-    "test:lint": "jshint src/rebunk.js",
+    "test:lint": "jshint src/rebunk.core.js",
     "test:unit" : "karma start test/karma.conf.js --browsers PhantomJS",
     "test:cover" : ""
   }
