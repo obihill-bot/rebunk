@@ -2,5 +2,10 @@
 
 A simple in-browser front-end testing framework
 
-[![CircleCI](https://circleci.com/gh/obihill/rebunk.svg?style=shield)](https://circleci.com/gh/obihill/rebunk)
+<p align="center">
+<a href=""><img src="https://img.shields.io/circleci/project/github/obihill/rebunk/master.svg" alt="Build Status"></a>
+<a href=""><img src="https://img.shields.io/codecov/c/github/obihill/rebunk/master.svg"></a>
+<a href=""><img src="https://img.shields.io/github/release/obihill/rebunk.svg"></a>
+<a href=""><img src="https://img.shields.io/github/license/obihill/rebunk.svg"></a>
+</p>
 
