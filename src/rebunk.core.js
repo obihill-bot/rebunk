@@ -472,7 +472,8 @@
                 console_icon_label_str,
                 console_message_str,
                 config_obj,
-                stage_flag_status_bool
+                stage_flag_status_bool,
+                dummy_vars_arr = []
                 ;
 
             //Show Header
@@ -482,6 +483,9 @@
 
                 rScript.domStore('rb_test_header', true);
             }
+            
+            //Add Dummy Vars
+            dummy_vars_arr = ['test_var_1', 'test_var_2'];
 
             //get config
             config_obj = _getConfig();
