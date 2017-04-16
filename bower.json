@@ -24,7 +24,6 @@
   "ignore": [
     "**/.*",
     "*.yml",
-    "*.md",
     "node_modules",
     "bower_components",
     "test",

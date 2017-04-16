@@ -22037,13 +22037,14 @@ window.MutationObserver = window.MutationObserver || (function(undefined) {
         /**
          * Defines the configuration
          * @param {Object} config_obj the config object that defines rebunk
+         * name: the name of the test. Default is 'Main Test'
          * timeout: the summary timeout in milliseconds. Default is 5000
-         * colorPass: the color of the test notification label that passes. Default is #008e00
-         * colorFail: the color of the test notification label that fails. Default is #ff0000
-         * colorFlag: the color of the flag notification message. Default is #888888
-         * colorBody: the color of the main test notification. Default is #555555
-         * colorHint: the color of the test notification hint. Default is #777777
-         * colorSummary: the color of the test summary. Default is #555555
+         * colorPass: the color of the test notification label that passes. Default is '#008e00'
+         * colorFail: the color of the test notification label that fails. Default is '#ff0000'
+         * colorFlag: the color of the flag notification message. Default is '#888888'
+         * colorBody: the color of the main test notification. Default is '#555555'
+         * colorHint: the color of the test notification hint. Default is '#777777'
+         * colorSummary: the color of the test summary. Default is '#555555'
          * labelPass: the text value of the test notification label that passes. Default is 'Pass'
          * labelFail: the text value of the test notification label that fails. Default is 'Fail'
          * labelFlag: the text value of the flag notification. Default is 'Flag'
@@ -22055,6 +22056,9 @@ window.MutationObserver = window.MutationObserver || (function(undefined) {
         {
             var myArgs = Array.prototype.slice.call(arguments),
                 config_obj = (_r.isObject(myArgs[0])) ? myArgs[0]: {};
+
+            //Name
+            config_obj.name = (config_obj.name && _r.isString(config_obj.name)) ? config_obj.name : 'Main Test';
 
             //Timeout
             config_obj.timeout = (config_obj.timeout && _r.isNumber(config_obj.timeout)) ? config_obj.timeout : 5000;
@@ -22415,9 +22419,6 @@ window.MutationObserver = window.MutationObserver || (function(undefined) {
         function test(label_str, expect_str, actual_str)
         {
             var myArgs = Array.prototype.slice.call(arguments),
-                test_id_temp_str = _r.md5(label_str),
-                test_id_str,
-                test_obj = {},
                 console_icon_symbol_str,
                 console_icon_color_str,
                 console_icon_label_str,
@@ -22437,6 +22438,14 @@ window.MutationObserver = window.MutationObserver || (function(undefined) {
             //get config
             config_obj = _getConfig();
 
+            //Show Name
+            if(!rScript.domStore('rb_test_name'))
+            {
+                _r.console.log('%cStarting '+config_obj.name+'...', 'color:#777777');
+
+                rScript.domStore('rb_test_name', true);
+            }
+
             //set timer if not set
             if(!rScript.domStore('rb_timer_test_summary'))
             {
@@ -22451,19 +22460,6 @@ window.MutationObserver = window.MutationObserver || (function(undefined) {
 
             //get stage flag status
             stage_flag_status_bool = !!((rScript.domStore('rb_stage_flag_status')));
-
-            /**
-            //generate test id
-            test_id_str = 'rebunk_test_'+test_id_temp_str.slice(0, 8);
-
-            //generate test object
-            test_obj.label = label_str;
-            test_obj.expect = expect_str;
-            test_obj.actual = actual_str;
-
-            //add to queue
-            rScript.addObject(test_id_str, test_obj, 'rebunk_test_queue');
-            **/
 
             //select message parameters based on test result
             if(expect_str === actual_str)

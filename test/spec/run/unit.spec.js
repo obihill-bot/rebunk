@@ -22,6 +22,8 @@ describe('Unit Tests', function(){
             var val_config_obj,
                 is_config_obj_bool,
                 is_config_obj_control_bool,
+                val_config_obj_name_str,
+                val_config_obj_name_control_str,
                 val_config_obj_timeout_int,
                 val_config_obj_timeout_control_int,
                 val_config_obj_colorpass_str,
@@ -58,6 +60,9 @@ describe('Unit Tests', function(){
                 is_config_obj_control_bool = true;
 
                 console.log(val_config_obj);
+
+                val_config_obj_name_str = val_config_obj.name;
+                val_config_obj_name_control_str = 'Main Test';
 
                 val_config_obj_timeout_int = val_config_obj.timeout;
                 val_config_obj_timeout_control_int = 5000;
@@ -102,6 +107,10 @@ describe('Unit Tests', function(){
 
             it('should check if rebunk config object is valid', function(){
                 expect(is_config_obj_bool).toBe(is_config_obj_control_bool);
+            });
+
+            it('should check if rebunk config object default value for name is accurate', function(){
+                expect(val_config_obj_name_str).toBe(val_config_obj_name_control_str);
             });
 
             it('should check if rebunk config object default value for timeout is accurate', function(){
