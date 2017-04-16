@@ -473,7 +473,8 @@
                 console_message_str,
                 config_obj,
                 stage_flag_status_bool,
-                dummy_vars_arr = []
+                dummy_vars_arr = [],
+                dummy_vars_2_arr
                 ;
 
             //Show Header
