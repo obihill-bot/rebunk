@@ -500,19 +500,6 @@
             //get stage flag status
             stage_flag_status_bool = !!((rScript.domStore('rb_stage_flag_status')));
 
-            /**
-            //generate test id
-            test_id_str = 'rebunk_test_'+test_id_temp_str.slice(0, 8);
-
-            //generate test object
-            test_obj.label = label_str;
-            test_obj.expect = expect_str;
-            test_obj.actual = actual_str;
-
-            //add to queue
-            rScript.addObject(test_id_str, test_obj, 'rebunk_test_queue');
-            **/
-
             //select message parameters based on test result
             if(expect_str === actual_str)
             {
